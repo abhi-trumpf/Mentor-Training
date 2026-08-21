@@ -18,10 +18,8 @@ class Program {
             Console.WriteLine ("Invalid input. Please enter a valid integer between 1 and 100.");
             continue;
          }
-         if (guess < randomNumber)
-            Console.WriteLine ("Your guess is too low");
-         else if (guess > randomNumber)
-            Console.WriteLine ("Your guess is too high");
+         if (guess < randomNumber) Console.WriteLine ("Your guess is too low");
+         else if (guess > randomNumber) Console.WriteLine ("Your guess is too high");
          else {
             Console.WriteLine ("You guessed it!");
             break;
