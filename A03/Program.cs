@@ -14,37 +14,32 @@
 using static System.Console;
 var path = Path.Combine (AppContext.BaseDirectory, "words.txt");
 var grandTotal = 0;
+var wordScores = new Dictionary<string, (int Score, bool Ispangram)> ();
 foreach (var word in File.ReadLines (path)) {
-   char[] letters = ['U', 'X', 'A', 'L', 'T', 'N', 'E'];
    var isPangram = true;
+   char[] letters = ['U', 'X', 'A', 'L', 'T', 'N', 'E'];
    if (word.Contains ('U') && word.Length >= 4 && word.All (c => "UXALTNE".Contains (c))) {
-
       foreach (var letter in letters) {
-         if (!word.Contains (letter)) {
+         if (!word.Contains (letter)) { //If each specific letter does not get repeated atleast once.
             isPangram = false;
             break;
          }
       }
-      if (isPangram) {
-         WriteLine ($"{word.Length + 7} {word}");
-      } else {
-         if (word.Length == 4) {
-            WriteLine ($"1. {word}");
-         } else {
-            WriteLine ($"{word.Length}. {word}");
-         }
-      }
+      if (isPangram)
+         wordScores[word] = (word.Length + 7, true);
+      else
+         wordScores[word] = (word.Length == 4 ? 1 : word.Length, false);
       int score;
-      if (word.Length == 4) {
-         score = 1;
-      } else {
-         score = word.Length;
-      }
-      if (isPangram) {
-         score += 7;
-      }
+      if (word.Length == 4) score = 1;
+      else score = word.Length;
+      if (isPangram) score += 7;
       grandTotal += score;
    }
 }
+foreach (var item in wordScores.OrderByDescending (item => item.Value)) {
+   if (item.Value.Ispangram) ForegroundColor = ConsoleColor.Green;
+   WriteLine ($"{item.Value.Score}.{item.Key}");
+   ResetColor ();
+}
 WriteLine ($"----");
-WriteLine ($"Grand total score: {grandTotal}");
+WriteLine ($"{grandTotal} total");
