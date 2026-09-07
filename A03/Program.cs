@@ -16,8 +16,7 @@ public class Project1 {
    public void IsValid () {
       foreach (var line in lines) {
          string word = line.ToUpper ();  //converts to cap U
-         if (word.Contains ("U") && word.Length >= 4 && word.All (letters.Contains)) //check for U
-         {
+         if (word.Contains ("U") && word.Length >= 4 && word.All (letters.Contains)) {/*check for U*/
             int score = line.Length == 4 ? 1 : line.Length; // '=' = if
             myDictionary[line] = score;
          }
@@ -26,8 +25,7 @@ public class Project1 {
    public void IsPangram () {
       foreach (var key in myDictionary.Keys.ToList ()) {
          string word = key.ToUpper ();
-         if (letters.All (c => word.Contains (char.ToUpper (c)))) //only access the ones that have value
-         {
+         if (letters.All (c => word.Contains (char.ToUpper (c)))) { /*only access the ones that have value*/
             myDictionary[key] += 7;
          }
       }
